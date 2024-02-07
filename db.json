@@ -1,0 +1,11 @@
+{
+    "doctors": [
+      { "id": 1, "name": "Dr. Smith" },
+      { "id": 2, "name": "Dr. Johnson" }
+    ],
+    "appointments": [
+      { "id": 1, "doctorId": 1, "startTime": "09:00", "endTime": "09:30", "patientName": "Jane Doe" },
+      { "id": 2, "doctorId": 2, "startTime": "10:00", "endTime": "10:45", "patientName": "John Smith" }
+    ]
+  }
+  
