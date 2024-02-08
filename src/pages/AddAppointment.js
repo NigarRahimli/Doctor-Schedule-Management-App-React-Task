@@ -1,11 +1,12 @@
+import React, { useState, useEffect } from "react";
 import {
   FormControl,
   InputLabel,
   MenuItem,
   Select,
   TextField,
+  Button,
 } from "@mui/material";
-import React, { useEffect, useState } from "react";
 
 function AddAppointment() {
   const [selectedDoctorId, setSelectedDoctorId] = useState("");
@@ -33,12 +34,61 @@ function AddAppointment() {
     }
   };
 
-  const handleChange = (event) => {
-    setSelectedDoctorId(event.target.value);
-  };
-
   const handleNameChange = (event) => {
     setPatientName(event.target.value);
+  };
+  const handleAddAppointment = async () => {
+    if (!selectedDoctorId || !startTime || !endTime || !patientName) {
+      alert("Please fill in all fields!");
+      return;
+    }
+
+    try {
+      const response = await fetch("http://localhost:3001/appointments");
+      if (!response.ok) {
+        throw new Error("Failed to fetch appointments");
+      }
+      const appointments = await response.json();
+
+      let maxId = 0;
+      appointments.forEach((appointment) => {
+        if (Number(appointment.id) > maxId) {
+          maxId = Number(appointment.id);
+        }
+      });
+
+      const newAppointmentId = maxId + 1;
+
+      const newAppointment = {
+        id: newAppointmentId.toString(),
+        doctorId: selectedDoctorId,
+        startTime: startTime,
+        endTime: endTime,
+        patientName: patientName,
+      };
+
+      const addResponse = await fetch("http://localhost:3001/appointments", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(newAppointment),
+      });
+
+      if (!addResponse.ok) {
+        throw new Error("Failed to add appointment");
+      }
+
+      setSelectedDoctorId("");
+      setStartTime("");
+      setEndTime("");
+      setPatientName("");
+
+      alert("Appointment added successfully!");
+    } catch (error) {
+      console.error("Error adding appointment:", error);
+      alert("Failed to add appointment. Please try again.");
+    }
   };
 
   return (
@@ -58,7 +108,7 @@ function AddAppointment() {
           labelId="doctor-select-label"
           id="doctor-select"
           value={selectedDoctorId}
-          onChange={handleChange}
+          onChange={(e) => setSelectedDoctorId(e.target.value)}
           label="Doctor"
         >
           {doctors.map((doctor) => (
@@ -84,6 +134,9 @@ function AddAppointment() {
           onChange={(e) => setEndTime(e.target.value)}
         />
       </div>
+      <Button variant="contained" onClick={handleAddAppointment}>
+        Add Appointment
+      </Button>
     </div>
   );
 }
