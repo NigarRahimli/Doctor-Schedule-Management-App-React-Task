@@ -1,3 +1,4 @@
+import React, { useState, useEffect } from "react";
 import {
   Button,
   Paper,
@@ -8,7 +9,6 @@ import {
   TableHead,
   TableRow,
 } from "@mui/material";
-import React, { useState, useEffect } from "react";
 
 function AppointmentsList() {
   const [appointments, setAppointments] = useState([]);
@@ -20,15 +20,29 @@ function AppointmentsList() {
   const fetchAppointments = async () => {
     try {
       const response = await fetch("http://localhost:3001/appointments");
-      console.log(response);
       if (!response.ok) {
         throw new Error("Failed to fetch appointments");
       }
       const data = await response.json();
-      console.log(data);
       setAppointments(data);
     } catch (error) {
       console.error("Error fetching appointments:", error);
+    }
+  };
+
+  const handleDelete = async (id) => {
+    try {
+      const response = await fetch(`http://localhost:3001/appointments/${id}`, {
+        method: "DELETE",
+      });
+      if (!response.ok) {
+        throw new Error("Failed to delete appointment");
+      }
+      setAppointments((prevAppointments) =>
+        prevAppointments.filter((appointment) => appointment.id !== id)
+      );
+    } catch (error) {
+      console.error("Error deleting appointment:", error);
     }
   };
 
@@ -61,7 +75,11 @@ function AppointmentsList() {
                 <TableCell align="center">{appointment.startTime}</TableCell>
                 <TableCell align="center">{appointment.endTime}</TableCell>
                 <TableCell align="center">
-                  <Button variant="contained" color="error">
+                  <Button
+                    variant="contained"
+                    color="error"
+                    onClick={() => handleDelete(appointment.id)}
+                  >
                     Delete
                   </Button>
                 </TableCell>

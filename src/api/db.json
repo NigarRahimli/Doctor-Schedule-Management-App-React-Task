@@ -11,32 +11,11 @@
   ],
   "appointments": [
     {
-      "id": "1",
-      "doctorId": 1,
-      "startTime": "09:00",
-      "endTime": "09:30",
-      "patientName": "Jane Doe"
-    },
-    {
       "id": "2",
       "doctorId": 2,
       "startTime": "10:00",
       "endTime": "10:45",
       "patientName": "John Smith"
-    },
-    {
-      "id": "3",
-      "doctorId": "2",
-      "startTime": "22:44",
-      "endTime": "12:43",
-      "patientName": "den"
-    },
-    {
-      "id": "4",
-      "doctorId": "1",
-      "startTime": "23:50",
-      "endTime": "13:50",
-      "patientName": "Jake"
     },
     {
       "id": "5",
@@ -54,10 +33,10 @@
     },
     {
       "id": "7",
-      "doctorId": "1",
-      "startTime": "23:55",
-      "endTime": "13:55",
-      "patientName": "defrw"
+      "doctorId": "2",
+      "startTime": "12:40",
+      "endTime": "23:41",
+      "patientName": "den"
     }
   ]
 }
