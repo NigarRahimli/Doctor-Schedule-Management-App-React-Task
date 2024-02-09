@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+
 import {
   Button,
   Paper,
@@ -9,9 +10,12 @@ import {
   TableHead,
   TableRow,
 } from "@mui/material";
+import UpdateAppointment from "./UpdateAppointment";
+import { Link } from "react-router-dom";
 
 function AppointmentsList() {
   const [appointments, setAppointments] = useState([]);
+  const [selectedAppointmentId, setSelectedAppointmentId] = useState(null);
 
   useEffect(() => {
     fetchAppointments();
@@ -46,6 +50,10 @@ function AppointmentsList() {
     }
   };
 
+  const handleUpdate = (id) => {
+    setSelectedAppointmentId(id);
+  };
+
   return (
     <div>
       <h1>Appointments</h1>
@@ -53,12 +61,13 @@ function AppointmentsList() {
         <Table sx={{ minWidth: 600 }} aria-label="simple table">
           <TableHead>
             <TableRow>
-              <TableCell>Id </TableCell>
+              <TableCell>Id</TableCell>
               <TableCell align="center">Patient</TableCell>
               <TableCell align="center">Doctor</TableCell>
               <TableCell align="center">Starts at</TableCell>
               <TableCell align="center">Ends at</TableCell>
               <TableCell align="center"></TableCell>
+              <TableCell align="center"></TableCell>{" "}
             </TableRow>
           </TableHead>
           <TableBody>
@@ -83,11 +92,28 @@ function AppointmentsList() {
                     Delete
                   </Button>
                 </TableCell>
+                <TableCell align="center">
+                  <Link to={`/update/${appointment.id}`}>
+                    <Button
+                      variant="contained"
+                      color="primary"
+                      onClick={() => handleUpdate(appointment.id)}
+                    >
+                      Update
+                    </Button>
+                  </Link>
+                </TableCell>
               </TableRow>
             ))}
           </TableBody>
         </Table>
       </TableContainer>
+      {selectedAppointmentId && (
+        <UpdateAppointment
+          appointmentId={selectedAppointmentId}
+          onClose={() => setSelectedAppointmentId(null)}
+        />
+      )}
     </div>
   );
 }

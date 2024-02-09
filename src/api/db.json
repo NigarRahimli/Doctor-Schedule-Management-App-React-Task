@@ -12,9 +12,9 @@
   "appointments": [
     {
       "id": "2",
-      "doctorId": 2,
-      "startTime": "10:00",
-      "endTime": "10:45",
+      "doctorId": "1",
+      "startTime": "00:00",
+      "endTime": "04:49",
       "patientName": "John Smith"
     },
     {
@@ -34,9 +34,9 @@
     {
       "id": "7",
       "doctorId": "2",
-      "startTime": "12:40",
-      "endTime": "23:41",
-      "patientName": "den"
+      "startTime": "21:37",
+      "endTime": "22:42",
+      "patientName": "James"
     }
   ]
 }

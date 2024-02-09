@@ -4,6 +4,7 @@ import AppointmentsList from "./pages/AppointmentsList";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import AddAppointment from "./pages/AddAppointment";
 import "./index.css";
+import UpdateAppointment from "./pages/UpdateAppointment";
 function App() {
   return (
     <BrowserRouter>
@@ -22,6 +23,14 @@ function App() {
           element={
             <Layout>
               <AddAppointment />
+            </Layout>
+          }
+        />
+        <Route
+          path="/update/:id"
+          element={
+            <Layout>
+              <UpdateAppointment />
             </Layout>
           }
         />
