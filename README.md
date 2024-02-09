@@ -1,5 +1,6 @@
 # To use db.json on folder in terminal you should  write:
 cd src/api 
+
 json-server --watch db.json --port 3001
 
 
